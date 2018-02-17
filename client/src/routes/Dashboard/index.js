@@ -14,10 +14,10 @@ const connector = connect(
   () => ({
     request(state, { limit, offset }) {
       return new Promise(resolve => {
-        fetch(`/api/tumblr/dashboard/${offset}/${limit}`)
+        fetch(`/api/tumblr/dashboard?offset=${offset}&limit=${limit}`)
           .then(res => res.json())
-          .then(data => {
-            state.dashboard.posts = data.posts || [];
+          .then((posts = []) => {
+            state.dashboard.posts = posts;
             resolve(state);
           })
           .catch(() => {
@@ -34,19 +34,21 @@ export default connector(
     constructor(props) {
       super(props);
 
+      this.states = {
+        FAILED: "FAILED",
+        COMPLETE: "COMPLETE",
+        LOADING: "LOADING"
+      };
+
       this.state = {
         offset: 0,
         limit: 10,
-        status: "LOAD_STATUS"
+        status: this.states.LOADING
       };
-
-      this.FAIL_STATUS = "FAIL_STATUS";
-      this.COMPLETE_STATUS = "COMPLETE_STATUS";
-      this.LOAD_STATUS = "LOAD_STATUS";
     }
 
     componentDidMount() {
-      // this.props.request(this.requestProps);
+      this.props.request(this.requestProps);
     }
 
     retryRequest() {
@@ -58,9 +60,9 @@ export default connector(
 
     componentWillReceiveProps(next) {
       if (next.posts.length > this.props.posts.length) {
-        this.setState(() => ({ status: this.COMPLETE_STATUS }));
+        this.setState(() => ({ status: this.states.COMPLETE }));
       } else if (next.posts.length === 0) {
-        this.setState(() => ({ status: this.FAIL_STATUS }));
+        this.setState(() => ({ status: this.states.FAILED }));
       }
     }
 
@@ -71,13 +73,13 @@ export default connector(
 
     render() {
       switch (this.state.status) {
-        case this.LOAD_STATUS: {
+        case this.states.LOADING: {
           return <Loader />;
         }
-        case this.COMPLETE_STATUS: {
+        case this.states.COMPLETE: {
           return <div>{this.props.posts.map(i => <Post {...i} />)}</div>;
         }
-        case this.COMPLETE_STATUS:
+        case this.states.FAILED:
         default: {
           return <Error tryAgain={() => this.retryRequest()} />;
         }

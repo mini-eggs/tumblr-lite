@@ -7,7 +7,7 @@ class Header extends Component {
     return (
       <header className="header-container">
         <nav>
-          <Link to="/">
+          <Link href="/">
             <img src={require("../../assets/feather.svg")} />
           </Link>
         </nav>
