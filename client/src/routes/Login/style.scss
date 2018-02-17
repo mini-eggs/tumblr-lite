@@ -1,0 +1,23 @@
+.login-container {
+  padding: 50px 0;
+  width: 200px;
+  max-width: 100%;
+  margin: 0 auto;
+
+  a {
+    text-decoration: none;
+    color: initial;
+  }
+
+  button {
+    display: block;
+    border-radius: 9999px;
+    border: none;
+    color: black;
+    font-weight: 800;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin: 0 0 10px;
+    width: 100%;
+  }
+}

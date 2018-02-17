@@ -1,0 +1,9 @@
+server/bin
+server/obj
+server/wwwroot
+client/node_modules
+client/.cache
+.env
+www
+tumblr-lite
+gin-bin

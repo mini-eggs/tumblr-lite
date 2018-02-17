@@ -1,0 +1,14 @@
+.error-container {
+  padding: 50px 0;
+  text-align: center;
+
+  button {
+    border-radius: 9999px;
+    border: none;
+    background-color: red;
+    color: white;
+    font-weight: 800;
+    padding: 10px 15px;
+    cursor: pointer;
+  }
+}
