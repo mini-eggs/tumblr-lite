@@ -21,6 +21,21 @@ body {
   outline: none !important;
 }
 
+body {
+  line-height: 1.4;
+}
+
 #app {
   height: 100%;
+}
+
+blockquote {
+  padding: 5px 5px 5px 15px;
+  margin: 5px 0;
+  border: solid #f3f3f3 0px;
+  border-left-width: 2px;
+}
+
+p {
+  margin: 0;
 }

@@ -1,4 +1,4 @@
-import { h, Component } from "preact";
+import { h, Component, Fragment } from "preact";
 import { connect } from "unistore/preact";
 import { route } from "preact-router";
 
@@ -42,7 +42,9 @@ class ProtectedRoute extends Component {
         return null;
       }
       default: {
-        return this.props.children.first(this.props);
+        return (
+          <Fragment children={this.props.children.map(fn => fn(this.props))} />
+        );
       }
     }
   }

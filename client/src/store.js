@@ -1,17 +1,23 @@
 import createStore from "unistore";
 
 const initialState = {
-  user: {
-    token: null,
-    secret: null,
-    oauth_token: null,
-    oauth_verifier: null
-  },
+  user: {},
   dashboard: {
     posts: []
   }
 };
 
 const store = createStore(initialState);
+
+export const persist = () => {
+  store.subscribe(state => {
+    const next = Object.assign({}, { user: state.user });
+    localStorage.setItem("TumblrLite:persist", JSON.stringify(next));
+  });
+  try {
+    const saved = localStorage.getItem("TumblrLite:persist");
+    store.setState(JSON.parse(saved));
+  } catch (_) {}
+};
 
 export default store;

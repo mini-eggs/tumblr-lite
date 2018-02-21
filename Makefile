@@ -1,6 +1,6 @@
-default: dev
+default: start
 
-dev: dev_client dev_server
+start: dev_client dev_server
 
 dev_client:
 	cd client && npm start
@@ -10,7 +10,7 @@ dev_server:
 
 build:
 	cd client && npm run build && cd .. && \
-	go build && ./server
+	go build && ./tumblr-lite
 
 setup: 
 	cd client && npm i && cd ..

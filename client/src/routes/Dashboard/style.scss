@@ -1,3 +1,21 @@
-.container {
+.pagination {
   padding: 50px 0;
+  max-width: 200px;
+  margin: 0 auto;
+
+  button {
+    display: block;
+    border-radius: 9999px;
+    border: none;
+    color: black;
+    font-weight: 800;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin: 0;
+    width: 100%;
+  }
+}
+
+.dashboard-footer-container {
+  min-height: 150px;
 }

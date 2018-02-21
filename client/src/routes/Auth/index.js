@@ -5,16 +5,7 @@ import Loader from "../../components/Loader";
 import Error from "../../components/Error";
 import "./style";
 
-const connector = connect(
-  state => ({}),
-  () => ({
-    updateOAuth(state, { oauth_token, oauth_verifier }) {
-      state.user.oauth_token = oauth_token;
-      state.user.oauth_verifier = oauth_verifier;
-      return state;
-    }
-  })
-);
+const connector = connect(state => ({}), () => ({}));
 
 class Auth extends Component {
   constructor(props) {
@@ -31,18 +22,25 @@ class Auth extends Component {
   }
 
   componentDidMount() {
-    const { oauth_token, oauth_verifier } = this.props.matches;
-    if (
-      typeof oauth_token === "string" &&
-      oauth_token.length > 0 &&
-      typeof oauth_verifier === "string" &&
-      oauth_verifier.length > 0
-    ) {
-      this.props.updateOAuth({ oauth_token, oauth_verifier });
-      route("/dashboard");
+    const { oauth_verifier } = this.props.matches;
+    if (typeof oauth_verifier === "string" && oauth_verifier.length > 0) {
+      this.requestFullAuth();
     } else {
       this.setState(() => ({ status: this.states.ERROR }));
     }
+  }
+
+  requestFullAuth() {
+    const { oauth_verifier } = this.props.matches;
+    const url = `/api/tumblr/receive-token-url?oauth_verifier=${oauth_verifier}`;
+    fetch(url, { credentials: "same-origin" })
+      .then(res => res.json())
+      .then(() => {
+        route("/dashboard");
+      })
+      .catch(() => {
+        this.setState(() => ({ status: this.states.ERROR }));
+      });
   }
 
   render() {

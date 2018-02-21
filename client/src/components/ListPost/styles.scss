@@ -1,0 +1,44 @@
+.list-post-container {
+  margin: 15px 0;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px;
+
+  img {
+    max-width: 100%;
+  }
+
+  .photo-single {
+    img {
+      width: 100%;
+    }
+  }
+
+  .caption-container {
+    padding: 15px;
+  }
+
+  .engage-container {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    opacity: 0.5;
+
+    .notes {
+      color: black;
+      font-weight: bold;
+    }
+
+    img {
+      margin-left: 15px;
+      cursor: pointer;
+    }
+  }
+
+  .blog-intro {
+    color: black;
+    padding: 15px;
+    font-weight: bold;
+    opacity: 0.5;
+  }
+}

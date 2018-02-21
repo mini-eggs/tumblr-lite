@@ -5,15 +5,7 @@ import "./style";
 import Loader from "../../components/Loader";
 import Error from "../../components/Error";
 
-const connector = connect(
-  state => ({}),
-  () => ({
-    updateSecret(state, secret) {
-      state.user.secret = secret;
-      return state;
-    }
-  })
-);
+const connector = connect(state => ({}), () => ({}));
 
 class Login extends Component {
   constructor(props) {
@@ -39,18 +31,17 @@ class Login extends Component {
     this.setState(
       () => ({ status: this.states.LOADING }),
       () => {
-        fetch("/api/tumblr/request-token-url")
+        fetch("/api/tumblr/request-token-url", { credentials: "same-origin" })
           .then(res => res.json())
-          .then(({ URL, Secret }) => {
+          .then(({ URL }) => {
             this.setState(() => ({
               status: this.state.COMPLETE,
               url: URL
             }));
-            this.updateSecret(Secret);
           })
           .catch(err => {
             this.setState(() => ({
-              status: this.state.ERROR
+              status: this.states.ERROR
             }));
           });
       }

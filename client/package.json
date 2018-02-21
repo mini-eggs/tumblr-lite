@@ -10,6 +10,7 @@
     "postcss-modules": "^1.1.0"
   },
   "dependencies": {
+    "lodash": "^4.17.5",
     "preact": "^8.2.7",
     "preact-router": "^2.6.0",
     "unistore": "^3.0.4"
